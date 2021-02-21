@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.m4.services.UserDetailsImpl;
+import com.example.m7.exception.ErrorExc;
 import com.example.m7.request.AddToGroupRequest;
 import com.example.m7.response.AddToGroupResponse;
 import com.example.m7.service.AddToGroupService;
@@ -23,7 +24,7 @@ public class AddToGroupController {
 	AddToGroupService addToGroupService;
 
 	@PostMapping("/add-to-group")
-	public ResponseEntity<AddToGroupResponse> registerUser(@Valid @RequestBody AddToGroupRequest request) {
+	public ResponseEntity<AddToGroupResponse> registerUser(@Valid @RequestBody AddToGroupRequest request) throws ErrorExc {
 		UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return addToGroupService.processAddToGroup(user.getId(), request);
 	}
